@@ -1,0 +1,23 @@
+http:
+  port: 5000
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  productApi:
+    host: 'localhost'
+    paths: '/products*'
+serviceEndpoints:
+  productService:
+    url: 'http://localhost:3000/api'
+policies:
+  - proxy
+pipelines:
+  default:
+    apiEndpoints:
+      - productApi
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: productService
+              changeOrigin: true
